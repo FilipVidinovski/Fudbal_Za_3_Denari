@@ -35,13 +35,17 @@ namespace FudbalZa3Denari
         11 - Next Level
          */
         #endregion
+        #region gameObjects
+        PictureBox table = new PictureBox();
+        PictureBox leftGoal = new PictureBox();
+        PictureBox rightGoal = new PictureBox();
         PictureBox turnCounter = new PictureBox();
         TextBox scoreBox = new TextBox();
+        Coin coin1 = new Coin();
+        Coin coin2 = new Coin();
+        Coin coin3 = new Coin();
 
-        #region GameItems
         bool gameIsInProgress = false, gameIsPaused = false;
-
-
         #endregion
 
 
@@ -51,6 +55,7 @@ namespace FudbalZa3Denari
             this.BackColor = Color.White;
 
             generateMenu();
+            setupGameItems();
         }
 
         private void generateMenu()
@@ -135,6 +140,16 @@ namespace FudbalZa3Denari
             this.Controls.Add(buttonResume);
         }
 
+        private void setupGameItems()
+        {
+            table.Size = new Size(1000, 500);
+            table.Location = new Point(140, 110);
+            table.Image = Properties.Resources.table;
+            this.Controls.Add(table);
+
+
+        }
+
         
 
         private void styleButton(PictureBox button)
@@ -173,8 +188,13 @@ namespace FudbalZa3Denari
 
         private void buttonlevel1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            hideLevels();
+            setupLevel();
+
+            level1();
         }
+
+        
 
         private void buttonlevel2_Click(object sender, EventArgs e)
         {
@@ -215,6 +235,16 @@ namespace FudbalZa3Denari
         private void buttonPause_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void setupLevel()
+        {
+            
+        }
+
+        private void level1()
+        {
+
         }
     }
 }

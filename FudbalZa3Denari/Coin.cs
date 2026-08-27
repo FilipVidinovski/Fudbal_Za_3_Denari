@@ -14,8 +14,7 @@ namespace FudbalZa3Denari
         Timer coinTimer = new Timer();
         public int coinLeft, coinTop;
         Vector2 location = new Vector2();
-        Vector2 xVelocity = new Vector2();
-        Vector2 yVelocity = new Vector2();
+        Vector2 Velocity = new Vector2();
 
 
         public void generateCoin(Form form)
@@ -28,7 +27,10 @@ namespace FudbalZa3Denari
             location.X += coin.Left;
             location.Y += coin.Top;
 
-            
+            if (location.X < 0 || location.X > 800)
+            {
+                Velocity.X = -Velocity.X;
+            }
         }
     }
 }
