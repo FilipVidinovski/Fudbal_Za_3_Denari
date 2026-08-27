@@ -315,7 +315,9 @@ namespace FudbalZa3Denari
             }
 
             table.Show();
+            table.SendToBack();
             buttonList[7].Show();
+            coin1.generateCoin(this);
 
         }
 
