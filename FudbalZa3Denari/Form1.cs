@@ -32,7 +32,6 @@ namespace FudbalZa3Denari
         8 - Resume
         9 - Restart
         10 - Main Menu
-        11 - Next Level
          */
         #endregion
         #region gameObjects
@@ -41,11 +40,13 @@ namespace FudbalZa3Denari
         PictureBox rightGoal = new PictureBox();
         PictureBox turnCounter = new PictureBox();
         TextBox scoreBox = new TextBox();
+        TextBox turnCounterBox = new TextBox();
         Coin coin1 = new Coin();
         Coin coin2 = new Coin();
         Coin coin3 = new Coin();
 
         bool gameIsInProgress = false, gameIsPaused = false;
+        byte CurrentLevel = 0;
         #endregion
 
 
@@ -65,6 +66,7 @@ namespace FudbalZa3Denari
             FudbalZa3DenariLogo.Image = Properties.Resources.Logo_temp;
             this.Controls.Add(FudbalZa3DenariLogo);
 
+            //0
             PictureBox buttonLevels = new PictureBox();
             styleButton(buttonLevels);
             buttonLevels.Location = new Point((this.Width - buttonLevels.Width) / 2, 350);
@@ -74,6 +76,7 @@ namespace FudbalZa3Denari
             this.Controls.Add(buttonLevels);
             buttonLevels.Show();
 
+            //1
             PictureBox buttonQuit = new PictureBox();
             styleButton(buttonQuit);
             buttonQuit.Location = new Point((this.Width - buttonQuit.Width) / 2, 420);
@@ -83,6 +86,7 @@ namespace FudbalZa3Denari
             this.Controls.Add(buttonQuit);
             buttonQuit.Show();
 
+            //2
             PictureBox buttonlevel1 = new PictureBox();
             styleButton(buttonlevel1);
             buttonlevel1.Location = new Point((this.Width / 8) - (buttonlevel1.Width / 2), 350);
@@ -91,6 +95,7 @@ namespace FudbalZa3Denari
             buttonList.Add(buttonlevel1);
             this.Controls.Add(buttonlevel1);
 
+            //3
             PictureBox buttonlevel2 = new PictureBox();
             styleButton(buttonlevel2);
             buttonlevel2.Location = new Point((this.Width / 8) + (this.Width / 4) - (buttonlevel2.Width / 2), 350);
@@ -99,6 +104,7 @@ namespace FudbalZa3Denari
             buttonList.Add(buttonlevel2);
             this.Controls.Add(buttonlevel2);
 
+            //4
             PictureBox buttonlevel3 = new PictureBox();
             styleButton(buttonlevel3);
             buttonlevel3.Location = new Point((this.Width / 8) + (this.Width / 4) * 2 - (buttonlevel3.Width / 2), 350);
@@ -107,6 +113,7 @@ namespace FudbalZa3Denari
             buttonList.Add(buttonlevel3);
             this.Controls.Add(buttonlevel3);
 
+            //5
             PictureBox buttonlevel4 = new PictureBox();
             styleButton(buttonlevel4);
             buttonlevel4.Location = new Point((this.Width / 8) + (this.Width / 4) * 3 - (buttonlevel4.Width / 2), 350);
@@ -115,6 +122,7 @@ namespace FudbalZa3Denari
             buttonList.Add(buttonlevel4);
             this.Controls.Add(buttonlevel4);
 
+            //6
             PictureBox buttonBack = new PictureBox();
             styleButton(buttonBack);
             buttonBack.Location = new Point(this.Width / 2 - buttonBack.Width / 2, 550);
@@ -122,35 +130,43 @@ namespace FudbalZa3Denari
             buttonBack.Click += new EventHandler(buttonBack_Click);
             buttonList.Add(buttonBack);
             this.Controls.Add(buttonBack);
-
+            
+            //7
             PictureBox buttonPause = new PictureBox();
             styleButton(buttonPause);
-            buttonPause.Location = new Point(this.Width-buttonPause.Width, 5);
+            buttonPause.Location = new Point(this.Width - buttonPause.Width, 5);
             buttonPause.Image = Properties.Resources.Pauza;
             buttonPause.Click += new EventHandler(buttonPause_Click);
             buttonList.Add(buttonPause);
             this.Controls.Add(buttonPause);
 
+            //8
             PictureBox buttonResume = new PictureBox();
             styleButton(buttonResume);
-            buttonResume.Location = new Point((this.Width / 8) * 3 - (buttonResume.Width / 2), 550);
+            buttonResume.Location = new Point((this.Width / 8) * 2 - (buttonResume.Width / 2), 550);
             buttonResume.Image = Properties.Resources.Resume;
-            buttonResume.Click += new EventHandler(buttonPause_Click);
+            buttonResume.Click += new EventHandler(buttonResume_Click);
             buttonList.Add(buttonResume);
             this.Controls.Add(buttonResume);
+
+            //9
+            PictureBox buttonRestart = new PictureBox();
+            styleButton(buttonRestart);
+            buttonRestart.Location = new Point((this.Width / 8) * 4 - (buttonRestart.Width / 2), 550);
+            buttonRestart.Image = Properties.Resources.restart;
+            buttonRestart.Click += new EventHandler(buttonRestart_Click);
+            buttonList.Add(buttonRestart);
+            this.Controls.Add(buttonRestart);
+
+            //10
+            PictureBox buttonMainMenu = new PictureBox();
+            styleButton(buttonMainMenu);
+            buttonMainMenu.Location = new Point((this.Width / 8) * 6 - (buttonMainMenu.Width / 2), 550);
+            buttonMainMenu.Image = Properties.Resources.main_menu;
+            buttonMainMenu.Click += new EventHandler(buttonMainMenu_Click);
+            buttonList.Add(buttonMainMenu);
+            this.Controls.Add(buttonMainMenu);
         }
-
-        private void setupGameItems()
-        {
-            table.Size = new Size(1000, 500);
-            table.Location = new Point(140, 110);
-            table.Image = Properties.Resources.table;
-            this.Controls.Add(table);
-
-
-        }
-
-        
 
         private void styleButton(PictureBox button)
         {
@@ -159,27 +175,24 @@ namespace FudbalZa3Denari
             button.Hide();
         }
 
+
+        private void setupGameItems()
+        {
+            table.Size = new Size(1000, 500);
+            table.Location = new Point(140, 110);
+            table.Image = Properties.Resources.table;
+            this.Controls.Add(table);
+            table.Hide();
+
+        }
+
         private void buttonLevels_Click(object sender, EventArgs e)
         {
             hideMenu();
             showLevels();
         }
 
-        private void hideMenu()
-        {
-            FudbalZa3DenariLogo.Hide();
-            buttonList[0].Hide();
-            buttonList[1].Hide();
-        }
 
-        private void showLevels()
-        {
-            buttonList[2].Show();
-            buttonList[3].Show();
-            buttonList[4].Show();
-            buttonList[5].Show();
-            buttonList[6].Show();
-        }
 
         private void buttonQuit_Click(object sender, EventArgs e)
         {
@@ -189,26 +202,25 @@ namespace FudbalZa3Denari
         private void buttonlevel1_Click(object sender, EventArgs e)
         {
             hideLevels();
-            setupLevel();
-
-            level1();
+            setupLevel(1);
         }
-
-        
 
         private void buttonlevel2_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            hideLevels();
+            setupLevel(2);
         }
 
         private void buttonlevel3_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            hideLevels();
+            setupLevel(3);
         }
 
         private void buttonlevel4_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            hideLevels();
+            setupLevel(4);
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -223,6 +235,21 @@ namespace FudbalZa3Denari
             buttonList[0].Show();
             buttonList[1].Show();
         }
+
+        private void hideMenu()
+        {
+            FudbalZa3DenariLogo.Hide();
+            buttonList[0].Hide();
+            buttonList[1].Hide();
+        }
+        private void showLevels()
+        {
+            buttonList[2].Show();
+            buttonList[3].Show();
+            buttonList[4].Show();
+            buttonList[5].Show();
+            buttonList[6].Show();
+        }
         private void hideLevels()
         {
             buttonList[2].Hide();
@@ -234,17 +261,89 @@ namespace FudbalZa3Denari
 
         private void buttonPause_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            showPauseMenu();
         }
 
-        private void setupLevel()
+        private void showPauseMenu()
         {
-            
+            buttonList[8].Show();
+            buttonList[9].Show();
+            buttonList[10].Show();
+        }
+
+        private void hidePauseMenu()
+        {
+            buttonList[8].Hide();
+            buttonList[9].Hide();
+            buttonList[10].Hide();
+        }
+
+        private void buttonRestart_Click(object sender, EventArgs e)
+        {
+            hidePauseMenu();
+            setupLevel(CurrentLevel);
+        }
+
+        private void buttonResume_Click(object sender, EventArgs e)
+        {
+            hidePauseMenu();
+        }
+
+        private void buttonMainMenu_Click(object sender, EventArgs e)
+        {
+            hidePauseMenu();
+            hideLevel();
+
+            showMenu();
+        }
+
+        private void setupLevel(int level)
+        {
+            switch (level) {
+                case 1:
+                    level1();
+                    break;
+                case 2:
+                    level2();
+                    break;
+                case 3:
+                    level3();
+                    break;
+                default:
+                    level4();
+                    break;
+            }
+
+            table.Show();
+            buttonList[7].Show();
+
+        }
+
+        private void hideLevel()
+        {
+            table.Hide();
+            buttonList[7].Hide();
         }
 
         private void level1()
         {
-
+            CurrentLevel = 1;
         }
+
+        private void level2()
+        {
+            CurrentLevel = 2;
+        }
+
+        private void level3()
+        {
+            CurrentLevel = 3;
+        }
+
+        private void level4()
+        {
+            CurrentLevel = 4;
+        }
+
     }
 }

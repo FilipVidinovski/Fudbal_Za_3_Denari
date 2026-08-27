@@ -115,5 +115,14 @@
   <ItemGroup>
     <None Include="Images\table.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\main menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\next level.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\restart.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
