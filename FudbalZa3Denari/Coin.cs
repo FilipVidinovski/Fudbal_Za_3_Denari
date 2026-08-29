@@ -11,7 +11,6 @@ namespace FudbalZa3Denari
     internal class Coin
     {
         PictureBox coin = new PictureBox();
-        Timer coinTimer = new Timer();
         public int coinLeft = 640, coinTop = 360;
         Vector2 location = new Vector2();
         Vector2 Velocity = new Vector2();
@@ -20,9 +19,10 @@ namespace FudbalZa3Denari
         public void generateCoin(Form form)
         {
             coin.Size = new System.Drawing.Size(30, 30);
-            coin.BackColor = System.Drawing.Color.Transparent;
+            coin.Location = new System.Drawing.Point(coinLeft, coinTop);
             coin.Image = Properties.Resources.coin;
             coin.Location = new System.Drawing.Point(coinLeft, coinTop);
+            coin.Show();
             coin.BringToFront();
         }
 

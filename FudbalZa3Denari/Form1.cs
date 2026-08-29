@@ -35,9 +35,7 @@ namespace FudbalZa3Denari
          */
         #endregion
         #region gameObjects
-        PictureBox table = new PictureBox();
-        PictureBox leftGoal = new PictureBox();
-        PictureBox rightGoal = new PictureBox();
+        
         PictureBox turnCounter = new PictureBox();
         TextBox scoreBox = new TextBox();
         TextBox turnCounterBox = new TextBox();
@@ -53,7 +51,7 @@ namespace FudbalZa3Denari
         private void Form1_Load(object sender, EventArgs e)
         {
             this.DoubleBuffered = true;
-            this.BackColor = Color.White;
+            this.BackgroundImage = Properties.Resources.table;
 
             generateMenu();
             setupGameItems();
@@ -178,11 +176,7 @@ namespace FudbalZa3Denari
 
         private void setupGameItems()
         {
-            table.Size = new Size(1000, 500);
-            table.Location = new Point(140, 110);
-            table.Image = Properties.Resources.table;
-            this.Controls.Add(table);
-            table.Hide();
+            
 
         }
 
@@ -314,8 +308,6 @@ namespace FudbalZa3Denari
                     break;
             }
 
-            table.Show();
-            table.SendToBack();
             buttonList[7].Show();
             coin1.generateCoin(this);
 
@@ -323,7 +315,7 @@ namespace FudbalZa3Denari
 
         private void hideLevel()
         {
-            table.Hide();
+            
             buttonList[7].Hide();
         }
 
