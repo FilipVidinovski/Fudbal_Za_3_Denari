@@ -1,53 +1,142 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace FudbalZa3Denari
+public class Coin
 {
-    internal class Coin
+    public Vector2 Position { get; private set; }
+    public Vector2 Velocity { get; private set; }
+
+    public bool IsAiming { get; private set; }
+
+    public const float Radius = 15f;
+
+    public Image Image { get; private set; }
+
+    private const float FieldLeft = 140f;
+    private const float FieldTop = 110f;
+    private const float FieldRight = 1140f;
+    private const float FieldBottom = 610f;
+
+    public Coin(float x, float y, Image image)
     {
-        PictureBox coin = new PictureBox();
-        public int coinLeft = 640, coinTop = 360;
-        Vector2 location = new Vector2();
-        Vector2 Velocity = new Vector2();
+        Position = new Vector2(x, y);
+        Velocity = Vector2.Zero;
+        Image = image;
+    }
 
-
-        public void generateCoin(Form form)
+    public bool IsMoving
+    {
+        get
         {
-            coin.Size = new System.Drawing.Size(30, 30);
-            coin.Location = new System.Drawing.Point(coinLeft, coinTop);
-            coin.Image = Properties.Resources.coin;
-            coin.Location = new System.Drawing.Point(coinLeft, coinTop);
-            coin.Show();
-            coin.BringToFront();
+            return Velocity.Length() >= 0.05f;
+        }
+    }
+
+    public void Update()
+    {
+        Velocity *= 0.99f;
+
+        if (Velocity.Length() < 0.05f)
+        {
+            Velocity = Vector2.Zero;
         }
 
-        private void coinTimer_Tick(object sender, EventArgs e)
+        float nextX = Position.X + Velocity.X;
+        float nextY = Position.Y + Velocity.Y;
+
+        if (nextX - Radius < FieldLeft)
         {
-            location.X += coin.Left;
-            location.Y += coin.Top;
+            Velocity = new Vector2(-Velocity.X, Velocity.Y);
 
-            if (location.X+Velocity.X < 140 || location.X+Velocity.X > 1140)
-            {
-                Velocity.X = -Velocity.X;
-            }
-            if (location.Y+Velocity.Y < 110 || location.Y+Velocity.Y > 610)
-            {
-                Velocity.Y = -Velocity.Y;
-            }
-
-            coin.Left = (int)location.X;
-            coin.Top = (int)location.Y;
-
-            Velocity.X *= 0.99f;
-            Velocity.Y *= 0.99f;
-
-            location.X += Velocity.X;
-            location.Y += Velocity.Y;
+            nextX = FieldLeft + Radius;
         }
+
+        if (nextX + Radius > FieldRight)
+        {
+            Velocity = new Vector2(-Velocity.X,Velocity.Y);
+
+            nextX = FieldRight - Radius;
+        }
+
+        if (nextY - Radius < FieldTop)
+        {
+            Velocity = new Vector2(Velocity.X,-Velocity.Y);
+
+            nextY = FieldTop + Radius;
+        }
+
+        if (nextY + Radius > FieldBottom)
+        {
+            Velocity = new Vector2(Velocity.X,-Velocity.Y);
+
+            nextY = FieldBottom - Radius;
+        }
+
+        Position = new Vector2(nextX, nextY);
+    }
+
+    public void SetVelocity(Vector2 velocity)
+    {
+        Velocity = velocity;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        Position = position;
+    }
+
+    public void Stop()
+    {
+        Velocity = Vector2.Zero;
+    }
+
+    public bool MouseOver(Point mousePosition)
+    {
+        float dx = mousePosition.X - Position.X;
+        float dy = mousePosition.Y - Position.Y;
+
+        float distanceSquared = dx * dx + dy * dy;
+
+        return distanceSquared <= Radius * Radius;
+    }
+
+    public void StartAiming()
+    {
+        IsAiming = true;
+    }
+
+    public void FlingTowards(Point target)
+    {
+        Vector2 direction = new Vector2(target.X - Position.X,target.Y - Position.Y);
+
+        float distance = direction.Length();
+
+        if (distance < 0.01f)
+        {
+            IsAiming = false;
+            return;
+        }
+
+        direction = Vector2.Normalize(direction);
+
+        const float MaxFlingDistance = 80f;
+        const float MaxFlingSpeed = 8f;
+
+        float flingSpeed = (distance / MaxFlingDistance) * MaxFlingSpeed;
+
+        if (flingSpeed > MaxFlingSpeed)
+        {
+            flingSpeed = MaxFlingSpeed;
+        }
+
+        Velocity = direction * flingSpeed;
+
+        IsAiming = false;
+    }
+
+    public void CancelAiming()
+    {
+        IsAiming = false;
     }
 }
