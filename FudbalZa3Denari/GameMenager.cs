@@ -11,7 +11,7 @@ public class GameManager
     private const float FieldRight = 1140f;
     private const float FieldBottom = 610f;
     private const float ScoringDistance = 100f;
-    private const float CollisionMargin = 7f;
+    private const float CollisionMargin = 10f;
 
     private Coin coin1;
     private Coin coin2;
@@ -107,7 +107,7 @@ public class GameManager
         return false;
     }
 
-    public void HandleMouseClick(MouseButtons button,Point mousePosition)
+    public void HandleMouseClick(MouseButtons button, Point mousePosition)
     {
         if (button == MouseButtons.Right)
         {
@@ -152,7 +152,7 @@ public class GameManager
         if (aimingCoin != null)
         {
             aimingCoin.FlingTowards(mousePosition);
-            BeginFlick(aimingCoin,mousePosition);
+            BeginFlick(aimingCoin, mousePosition);
 
             return;
         }
@@ -169,7 +169,7 @@ public class GameManager
 
 
 
-    private void BeginFlick(Coin coin,Point target)
+    private void BeginFlick(Coin coin, Point target)
     {
         movingCoin = coin;
         moveInProgress = true;
@@ -189,7 +189,7 @@ public class GameManager
 
         if (mustPassBetween)
         {
-            invalidShot =!ShotPassesBetweenOtherCoins(coin,target);
+            invalidShot =!ShotPassesBetweenOtherCoins(coin, target);
         }
         else
         {
@@ -365,8 +365,8 @@ public class GameManager
 
         if (distance > 0.001f)
         {
-            Vector2 direction =difference / distance;
-            float overlap =collisionDistance - distance;
+            Vector2 direction = difference / distance;
+            float overlap = collisionDistance - distance;
 
             moving.SetPosition(moving.Position - direction * (overlap / 2f));
             other.SetPosition(other.Position + direction * (overlap / 2f));
@@ -419,19 +419,19 @@ public class GameManager
 
         if (smallest == fromLeft)
         {
-            coin.SetVelocity(new Vector2(-Math.Abs(coin.Velocity.X),coin.Velocity.Y));
+            coin.SetVelocity(new Vector2(-Math.Abs(coin.Velocity.X), coin.Velocity.Y));
         }
         else if (smallest == fromRight)
         {
-            coin.SetVelocity(new Vector2(Math.Abs(coin.Velocity.X),coin.Velocity.Y));
+            coin.SetVelocity(new Vector2(Math.Abs(coin.Velocity.X), coin.Velocity.Y));
         }
         else if (smallest == fromTop)
         {
-            coin.SetVelocity(new Vector2(coin.Velocity.X,-Math.Abs(coin.Velocity.Y)));
+            coin.SetVelocity(new Vector2(coin.Velocity.X, -Math.Abs(coin.Velocity.Y)));
         }
         else
         {
-            coin.SetVelocity(new Vector2(coin.Velocity.X,Math.Abs(coin.Velocity.Y)));
+            coin.SetVelocity(new Vector2(coin.Velocity.X, Math.Abs(coin.Velocity.Y)));
         }
     }
 
@@ -453,7 +453,7 @@ public class GameManager
         }
 
         Vector2 start = shotCoin.Position;
-        Vector2 end =new Vector2(target.X,target.Y);
+        Vector2 end = new Vector2(target.X,target.Y);
         Vector2 shotDirection = end - start;
 
         if (shotDirection.LengthSquared() < 0.0001f)
@@ -469,7 +469,7 @@ public class GameManager
         Vector2 relativeB = otherCoins[1].Position - start;
 
         float sideA = Vector2.Dot(relativeA,perpendicular);
-        float sideB =Vector2.Dot(relativeB,perpendicular);
+        float sideB = Vector2.Dot(relativeB,perpendicular);
 
         if (sideA == 0f || sideB == 0f)
         {

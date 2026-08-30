@@ -637,7 +637,7 @@ namespace FudbalZa3Denari
                 return;
             }
 
-            score.Text = "Player 1: " + gameManager.PlayerOneScore + "    Player 2: " + gameManager.PlayerTwoScore;
+            score.Text = "Играч 1: " + gameManager.PlayerOneScore + "    Играч 2: " + gameManager.PlayerTwoScore;
 
             if (gameManager.CurrentTurn == GameManager.TurnState.PlayerOne)
             {
