@@ -25,12 +25,9 @@ public class Coin
         Image = image;
     }
 
-    public bool IsMoving
+    public bool IsMoving()
     {
-        get
-        {
-            return Velocity.Length() >= 0.05f;
-        }
+        return Velocity.Length() >= 0.05f;
     }
 
     public void Update()
@@ -39,7 +36,7 @@ public class Coin
 
         if (Velocity.Length() < 0.05f)
         {
-            Velocity = Vector2.Zero;
+            Velocity = new Vector2(0, 0);
         }
 
         float nextX = Position.X + Velocity.X;
@@ -48,28 +45,24 @@ public class Coin
         if (nextX - Radius < FieldLeft)
         {
             Velocity = new Vector2(-Velocity.X, Velocity.Y);
-
             nextX = FieldLeft + Radius;
         }
 
         if (nextX + Radius > FieldRight)
         {
-            Velocity = new Vector2(-Velocity.X,Velocity.Y);
-
+            Velocity = new Vector2(-Velocity.X, Velocity.Y);
             nextX = FieldRight - Radius;
         }
 
         if (nextY - Radius < FieldTop)
         {
-            Velocity = new Vector2(Velocity.X,-Velocity.Y);
-
+            Velocity = new Vector2(Velocity.X, -Velocity.Y);
             nextY = FieldTop + Radius;
         }
 
         if (nextY + Radius > FieldBottom)
         {
-            Velocity = new Vector2(Velocity.X,-Velocity.Y);
-
+            Velocity = new Vector2(Velocity.X, -Velocity.Y);
             nextY = FieldBottom - Radius;
         }
 
@@ -109,10 +102,9 @@ public class Coin
     public void FlingTowards(Point target)
     {
         Vector2 direction = new Vector2(target.X - Position.X,target.Y - Position.Y);
-
         float distance = direction.Length();
 
-        if (distance < 0.01f)
+        if (distance < 0.1f)
         {
             IsAiming = false;
             return;

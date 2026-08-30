@@ -121,6 +121,15 @@
   <data name="Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="box_100x100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\box 100x100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="box_100x200" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\box 100x200.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="box_200x100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\box 200x100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="coin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\coin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -151,6 +160,27 @@
   <data name="Pauza" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pauza.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pixil_frame_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\pixil-frame-0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_1_Flicks_Left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 1 Flicks Left 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_1_Flicks_Left_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 1 Flicks Left 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_1_Flicks_Left_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 1 Flicks Left 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_2_Flicks_Left_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 2 Flicks Left 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_2_Flicks_Left_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 2 Flicks Left 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player_2_Flicks_Left_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\Player 2 Flicks Left 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Quit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Quit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -162,5 +192,11 @@
   </data>
   <data name="table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="table_player_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\table player 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="table_player_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\table player 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

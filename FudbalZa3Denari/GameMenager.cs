@@ -18,7 +18,7 @@ public class GameManager
     private Coin coin3;
 
     private List<Coin> coins = new List<Coin>();
-    private List<PictureBox> obstacles = new List<PictureBox>();
+    private List<PictureBox> obsticles = new List<PictureBox>();
 
     public enum TurnState
     {
@@ -39,19 +39,14 @@ public class GameManager
     private bool invalidShot;
     private bool turnWasForcedToEnd;
 
-    private HashSet<Coin> coinsHitThisMove =
-        new HashSet<Coin>();
+    private HashSet<Coin> coinsHitThisMove = new HashSet<Coin>();
 
     private int playerOneScore;
     private int playerTwoScore;
 
     private bool scoreAlreadyAwarded;
 
-    public GameManager(
-        Coin coin1,
-        Coin coin2,
-        Coin coin3,
-        List<PictureBox> obstacles)
+    public GameManager(Coin coin1, Coin coin2, Coin coin3, List<PictureBox> obsticles)
     {
         this.coin1 = coin1;
         this.coin2 = coin2;
@@ -61,9 +56,9 @@ public class GameManager
         coins.Add(coin2);
         coins.Add(coin3);
 
-        if (obstacles != null)
+        if (obsticles != null)
         {
-            this.obstacles = obstacles;
+            this.obsticles = obsticles;
         }
 
         CurrentTurn = TurnState.PlayerOne;
@@ -71,51 +66,39 @@ public class GameManager
         flicksMade = 0;
     }
 
+
     public bool GameOver
     {
-        get
-        {
-            return CurrentTurn == TurnState.GameOver;
-        }
+        get { return CurrentTurn == TurnState.GameOver; }
     }
 
     public int PlayerOneScore
     {
-        get
-        {
-            return playerOneScore;
-        }
+        get { return playerOneScore; }
     }
 
     public int PlayerTwoScore
     {
-        get
-        {
-            return playerTwoScore;
-        }
+        get { return playerTwoScore; }
     }
 
     public int FlicksRemaining
     {
         get
-        {
-            return flicksRemaining;
-        }
+        { return flicksRemaining; }
     }
 
     public int FlicksMade
     {
-        get
-        {
-            return flicksMade;
-        }
+        get { return flicksMade; }
     }
+
 
     public bool AnyCoinMoving()
     {
         foreach (Coin coin in coins)
         {
-            if (coin != null && coin.IsMoving)
+            if (coin != null && coin.IsMoving())
             {
                 return true;
             }
@@ -124,9 +107,7 @@ public class GameManager
         return false;
     }
 
-    public void HandleMouseClick(
-    MouseButtons button,
-    Point mousePosition)
+    public void HandleMouseClick(MouseButtons button,Point mousePosition)
     {
         if (button == MouseButtons.Right)
         {
@@ -138,16 +119,24 @@ public class GameManager
         }
 
         if (button != MouseButtons.Left)
-            return;
+        { 
+            return; 
+        }
 
         if (GameOver)
-            return;
+        { 
+            return; 
+        }
 
         if (AnyCoinMoving())
-            return;
+        { 
+            return; 
+        }
 
         if (flicksRemaining <= 0)
-            return;
+        { 
+            return; 
+        }
 
         Coin aimingCoin = null;
 
@@ -163,11 +152,7 @@ public class GameManager
         if (aimingCoin != null)
         {
             aimingCoin.FlingTowards(mousePosition);
-
-            BeginFlick(
-                aimingCoin,
-                mousePosition
-            );
+            BeginFlick(aimingCoin,mousePosition);
 
             return;
         }
@@ -187,12 +172,10 @@ public class GameManager
     private void BeginFlick(Coin coin,Point target)
     {
         movingCoin = coin;
-
         moveInProgress = true;
+        turnWasForcedToEnd = false;
 
         coinsHitThisMove.Clear();
-
-        turnWasForcedToEnd = false;
 
         flicksMade++;
         flicksRemaining--;
@@ -230,9 +213,9 @@ public class GameManager
 
         foreach (Coin coin in coins)
         {
-            foreach (PictureBox obstacle in obstacles)
+            foreach (PictureBox obstacle in obsticles)
             {
-                CheckCoinBoxCollision(coin,obstacle.Bounds);
+                CheckCoinBoxCollision(coin, obstacle.Bounds);
             }
         }
 
@@ -240,22 +223,21 @@ public class GameManager
         {
             for (int j = i + 1; j < coins.Count; j++)
             {
-                CheckCoinCollision(coins[i],coins[j]);
+                CheckCoinCollision(coins[i], coins[j]);
             }
         }
-
-        CheckForScore();
 
         if (moveInProgress && !AnyCoinMoving())
         {
             FinishFlick();
+            CheckForScore();
         }
     }
+
 
     private void FinishFlick()
     {
         moveInProgress = false;
-
         movingCoin = null;
 
         if (GameOver)
@@ -352,9 +334,7 @@ public class GameManager
     private void CheckCoinCollision(Coin moving,Coin other)
     {
         Vector2 difference = other.Position - moving.Position;
-
         float distance = difference.Length();
-
         float collisionDistance = Coin.Radius * 2f;
 
         if (distance > collisionDistance)
@@ -368,7 +348,6 @@ public class GameManager
         }
 
         float xDifference = Math.Abs(moving.Position.X - other.Position.X);
-
         float yDifference = Math.Abs(moving.Position.Y - other.Position.Y);
 
         if (yDifference <= CollisionMargin)
@@ -387,28 +366,26 @@ public class GameManager
         if (distance > 0.001f)
         {
             Vector2 direction =difference / distance;
+            float overlap =collisionDistance - distance;
 
-            float overlap =collisionDistance -distance;
-
-            moving.SetPosition(moving.Position -direction * (overlap / 2f));
-
-            other.SetPosition(other.Position +direction * (overlap / 2f));
+            moving.SetPosition(moving.Position - direction * (overlap / 2f));
+            other.SetPosition(other.Position + direction * (overlap / 2f));
         }
     }
 
 
-    private void SwapHorizontalVelocity(Coin moving,Coin other)
+    private void SwapHorizontalVelocity(Coin moving, Coin other)
     {
-        float temp =moving.Velocity.X;
+        float temp = moving.Velocity.X;
 
-        moving.SetVelocity(new Vector2(other.Velocity.X,moving.Velocity.Y));
+        moving.SetVelocity(new Vector2(other.Velocity.X, moving.Velocity.Y));
 
-        other.SetVelocity(new Vector2(temp,other.Velocity.Y));
+        other.SetVelocity(new Vector2(temp, other.Velocity.Y));
     }
 
     private void SwapVerticalVelocity(Coin moving,Coin other)
     {
-        float temp =moving.Velocity.Y;
+        float temp = moving.Velocity.Y;
 
         moving.SetVelocity(new Vector2(moving.Velocity.X,other.Velocity.Y));
 
@@ -417,7 +394,7 @@ public class GameManager
 
     private void SwapBothVelocity(Coin moving,Coin other)
     {
-        Vector2 temp =moving.Velocity;
+        Vector2 temp = moving.Velocity;
 
         moving.SetVelocity(other.Velocity);
 
@@ -426,7 +403,7 @@ public class GameManager
 
     private void CheckCoinBoxCollision(Coin coin,Rectangle box)
     {
-        Rectangle coinRect =new Rectangle((int)(coin.Position.X - Coin.Radius),(int)(coin.Position.Y - Coin.Radius),(int)(Coin.Radius * 2),(int)(Coin.Radius * 2));
+        Rectangle coinRect = new Rectangle((int)(coin.Position.X - Coin.Radius), (int)(coin.Position.Y - Coin.Radius), (int)(Coin.Radius * 2), (int)(Coin.Radius * 2));
 
         if (!coinRect.IntersectsWith(box))
         {
@@ -434,14 +411,11 @@ public class GameManager
         }
 
         float fromLeft = coinRect.Right - box.Left;
-
         float fromRight = box.Right - coinRect.Left;
-
         float fromTop = coinRect.Bottom - box.Top;
-
         float fromBottom = box.Bottom - coinRect.Top;
 
-        float smallest =Math.Min(Math.Min(fromLeft, fromRight),Math.Min(fromTop, fromBottom));
+        float smallest = Math.Min(Math.Min(fromLeft, fromRight),Math.Min(fromTop, fromBottom));
 
         if (smallest == fromLeft)
         {
@@ -479,9 +453,7 @@ public class GameManager
         }
 
         Vector2 start = shotCoin.Position;
-
         Vector2 end =new Vector2(target.X,target.Y);
-
         Vector2 shotDirection = end - start;
 
         if (shotDirection.LengthSquared() < 0.0001f)
@@ -494,11 +466,9 @@ public class GameManager
         Vector2 perpendicular = new Vector2(-shotDirection.Y,shotDirection.X);
 
         Vector2 relativeA = otherCoins[0].Position - start;
-
         Vector2 relativeB = otherCoins[1].Position - start;
 
         float sideA = Vector2.Dot(relativeA,perpendicular);
-
         float sideB =Vector2.Dot(relativeB,perpendicular);
 
         if (sideA == 0f || sideB == 0f)
@@ -512,7 +482,6 @@ public class GameManager
         }
 
         float projectionA = Vector2.Dot(relativeA,shotDirection);
-
         float projectionB = Vector2.Dot(relativeB,shotDirection);
 
         if (projectionA < 0 || projectionB < 0)
@@ -569,7 +538,7 @@ public class GameManager
                 return;
             }
 
-            ResetRound();
+            ResetRound(TurnState.PlayerTwo);
             return;
         }
 
@@ -584,23 +553,26 @@ public class GameManager
                 CurrentTurn = TurnState.GameOver;
                 return;
             }
-            ResetRound();
+
+            ResetRound(TurnState.PlayerOne);
         }
     }
 
-    private void ResetRound()
+
+
+    private void ResetRound(TurnState startingPlayer)
     {
-        coin1.SetPosition(new Vector2(640f,290f));
-        coin2.SetPosition(new Vector2(640f,350f));
-        coin3.SetPosition(new Vector2(640f,410f));
+        coin1.SetPosition(new Vector2(640f, 290f));
+        coin2.SetPosition(new Vector2(640f, 350f));
+        coin3.SetPosition(new Vector2(640f, 410f));
 
         coin1.SetVelocity(Vector2.Zero);
         coin2.SetVelocity(Vector2.Zero);
         coin3.SetVelocity(Vector2.Zero);
 
-        CurrentTurn = TurnState.PlayerOne;
+        CurrentTurn = startingPlayer;
 
-        flicksRemaining = 2;
+        flicksRemaining = 3;
         flicksMade = 0;
 
         movingCoin = null;
@@ -618,7 +590,6 @@ public class GameManager
         coin2.CancelAiming();
         coin3.CancelAiming();
     }
-
     public void ResetGame()
     {
         playerOneScore = 0;
@@ -626,6 +597,7 @@ public class GameManager
 
         scoreAlreadyAwarded = false;
 
-        ResetRound();
+        ResetRound(TurnState.PlayerOne);
     }
+
 }

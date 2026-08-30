@@ -128,5 +128,41 @@
   <ItemGroup>
     <None Include="Images\coin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\box 100x200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\box 100x100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\box 200x100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 1 Flicks Left 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 1 Flicks Left 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 1 Flicks Left 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 2 Flicks Left 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 2 Flicks Left 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Player 2 Flicks Left 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\table player 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\table player 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\pixil-frame-0.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
